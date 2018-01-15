@@ -44,7 +44,7 @@ x = [0 x_max];
 y = [0 y_max];
 Yaw = 0;
 z = -3;
-dTime= 6;
+dTime= 5;
 number_of_repetition = 1;
 
         mav.set_setpointsFlags(target,1);
@@ -60,8 +60,9 @@ for i=1:2;
         
         hold on
         axis([-1 5 -1 5])
-        plot (x(i),y(i),'b.')
+        
         pause(dTime);
+        plot (x(i),y(i),'b.')
         NEDx(i)=mav.get_LocalNED(target).x;
         NEDy(i)=mav.get_LocalNED(target).y;
         plot (NEDx(i),NEDy(i),'ro')
@@ -72,16 +73,16 @@ end
 end
 end
 mav.set_PositionSetPoints(target,x(1),y(1),z,Yaw);
-figure % new figure
-ax1 = subplot(2,1,1); % top subplot
-ax2 = subplot(2,1,2); % bottom subplot
-plot(ax1,x_error)
-title(ax1,'X error')
-
-
-plot(ax2,y_error)
-title(ax2,'Y error')
-axis([ax1 ax2],[0 i 0 100]) 
+% figure % new figure
+% ax1 = subplot(2,1,1); % top subplot
+% ax2 = subplot(2,1,2); % bottom subplot
+% plot(ax1,x_error)
+% title(ax1,'X error')
+% 
+% 
+% plot(ax2,y_error)
+% title(ax2,'Y error')
+% axis([ax1 ax2],[0 i 0 100]) 
 
 %% DisARM command
 target=1;
