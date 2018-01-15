@@ -31,65 +31,47 @@ countdown(0,contdown_time,'Takeoff',0)
 pause(contdown_time)
 %takeoff
 sysID=1;
-mav.set_takeoffALT(sysID,-5);
+mav.set_takeoffALT(sysID,-3);
 mav.takeoff(sysID);
 mav.toggle_OFFB(sysID,1);
 
 %% send position setpoints
 target=1;
 % position setpoint, xyz in meters, Yaw in rad
-xcenter=0;
-ycenter=0;
-radius=3;
-z=-3;
-Yaw=degtorad(0);
-step=0.05;
-dTime=0.2;
-No_of_rotations=4;
-%ctr = [0 0];
+x_max=3;
+y_max=3;
+x = [0 x_max];
+y = [0 y_max];
+Yaw = 0;
+z = -3;
+dTime= 6;
+number_of_repetition = 1;
 
-%%%%%%%path desciption
-[x, y]=circle(xcenter,ycenter,radius,step);
+        mav.set_setpointsFlags(target,1);
+        start=1; stop=0;
+        mav.sendSetPoints(start);
+        mav.toggle_OFFB(target,start);
 
-%%%%%%%%%%%%%%%%%%%%%%
-for j=1:No_of_rotations;
-for i=1:length(x);
+for rep=1:number_of_repetition;
+for i=1:2;
+    for j= 1:2;
+        mav.set_PositionSetPoints(target,x(i),y(j),z,Yaw);
 
-angel=asind(y(i)/radius);
-if (x(i) >= 0 ) && (y(i) >= 0)
-    Yawd=angel+90
-elseif (x(i) < 0 ) && (y(i) >= 0)
-    Yawd=-(angel+90)
-elseif (x(i) < 0 ) && (y(i) < 0)
-    Yawd=-(angel+90)
-elseif (x(i) >= 0 ) && (y(i) < 0)
-    Yawd=angel+90
-end
-
-Yaw=degtorad(Yawd);
-%[xtng, ytng] = pt_circ_tangent(ctr, radius, [x(i))
-mav.set_PositionSetPoints(target,x(i),y(i),z,Yaw);
-mav.set_setpointsFlags(target,1);
-start=1; stop=0;
-mav.sendSetPoints(start);
-mav.toggle_OFFB(target,start);
-%  x_ned=mav.get_LocalNED(target).x;
-%  y_ned=mav.get_LocalNED(target).y;
-% 
- NEDx(i)=mav.get_LocalNED(target).x;
- NEDy(i)=mav.get_LocalNED(target).y;
- %plot (x_ned,y_ned,'b--o')
- hold on
- axis([-5 5 -5 5])
- 
- plot (NEDx(i),NEDy(i),'r.-')
-pause(dTime)
-x_error(i)=abs(((x(i)-NEDx(i))/x(i))*100);
-y_error(i)=abs(((y(i)-NEDy(i))/y(i))*100);
+        
+        hold on
+        axis([-1 5 -1 5])
+        plot (x(i),y(i),'b.')
+        pause(dTime);
+        NEDx(i)=mav.get_LocalNED(target).x;
+        NEDy(i)=mav.get_LocalNED(target).y;
+        plot (NEDx(i),NEDy(i),'ro')
+        x_error(i)=abs(((x(i)-NEDx(i))/x(i))*100);
+        y_error(i)=abs(((y(i)-NEDy(i))/y(i))*100);
 
 end
-
 end
+end
+mav.set_PositionSetPoints(target,x(1),y(1),z,Yaw);
 figure % new figure
 ax1 = subplot(2,1,1); % top subplot
 ax2 = subplot(2,1,2); % bottom subplot
