@@ -43,8 +43,8 @@ ycenter=0;
 radius=3;
 z=-3;
 Yaw=degtorad(0);
-step=0.1;
-dTime=0.2;
+step=0.06;
+dTime=0.03;
 No_of_rotations=2;
 %ctr = [0 0];
 
