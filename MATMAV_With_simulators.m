@@ -43,9 +43,9 @@ ycenter=0;
 radius=3;
 z=-3;
 Yaw=degtorad(0);
-step=0.05;
+step=0.1;
 dTime=0.2;
-No_of_rotations=4;
+No_of_rotations=2;
 %ctr = [0 0];
 
 %%%%%%%path desciption
@@ -90,16 +90,16 @@ y_error(i)=abs(((y(i)-NEDy(i))/y(i))*100);
 end
 
 end
-figure % new figure
-ax1 = subplot(2,1,1); % top subplot
-ax2 = subplot(2,1,2); % bottom subplot
-plot(ax1,x_error)
-title(ax1,'X error')
-
-
-plot(ax2,y_error)
-title(ax2,'Y error')
-axis([ax1 ax2],[0 i 0 100]) 
+% figure % new figure
+% ax1 = subplot(2,1,1); % top subplot
+% ax2 = subplot(2,1,2); % bottom subplot
+% plot(ax1,x_error)
+% title(ax1,'X error')
+% 
+% 
+% plot(ax2,y_error)
+% title(ax2,'Y error')
+% axis([ax1 ax2],[0 i 0 100]) 
 
 %% DisARM command
 target=1;
