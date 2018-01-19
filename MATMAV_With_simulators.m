@@ -12,9 +12,9 @@ clc;
 
 clear;
 clc;
-target=1;
+target=2;
 mav=MatMav(target);
-mav.set_UDPREMOTEADDR(1,{'192.168.100.10',14556})
+mav.set_UDPREMOTEADDR(1,{'192.168.100.10',14560})
 
 mav.set_UDPLOCALPRT(14550);
 mav.ConnectUDP();

@@ -8,20 +8,16 @@ clear;
 clc;
 
 %% test script for MatMav v2.3+
-% by Mohamed Abdlekader
 
 clear;
 clc;
 target=2;
-
 mav=MatMav(target);
-
-%% connect to first target
-mav.set_UDPREMOTEADDR(1,{'192.168.100.18',14560})
-mav.set_UDPREMOTEADDR(1,{'192.168.100.18',14562})
+mav.set_UDPREMOTEADDR(1,{'192.168.100.11',14556})
+mav.set_UDPREMOTEADDR(2,{'192.168.100.11',14562})
 mav.set_UDPLOCALPRT(14550);
 mav.ConnectUDP();
-
+mav.Arm(1,1);
 %% ARM command
 target=1;
 start=1; % arm
